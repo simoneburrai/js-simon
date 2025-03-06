@@ -4,7 +4,7 @@ const maxNumber = 50;
 // array with casual numbers 
 const casualArray = generateRandomNumbers(minNumber, maxNumber);
 // Timer count 
-let timerCount = 10;
+let timerCount = 1;
 
 // HTML Elements 
 const numbersListElement = document.getElementById("numbers-list");
@@ -31,7 +31,7 @@ const timerInterval = setInterval(intervalCounter, 1_000);
 formElement.addEventListener("submit", function(event){
     event.preventDefault();
     // stampo messaggio dei numeri indovinati 
-    messageElement.innerText = "I numeri indovinati sono ";
+   
     // creo un array di numeri vuoto 
     const userNumbers = [];
     // prendo tutti gli input dall'HTML 
@@ -43,14 +43,21 @@ formElement.addEventListener("submit", function(event){
 
     // creo una variabile, contenente l'array dei valori uguali tra i due array
     const result = twoArraysValuesControl(userNumbers, casualArray);
-
-    // Se l'array non è vuoto cambio il colore del messaggio in verde 
-    if(result.length !== 0){
-        messageElement.classList.replace("text-danger", "text-success");
+    if(equalElementsInArray(result) & result.length !== 0){
+        messageElement.classList.replace("text-danger", "text-success")
+        messageElement.innerText = "I numeri indovinati sono ";
+        messageElement.append(`(${result})`);
+        
+    }else {
+        messageElement.classList.replace("text-succcess", "text-danger")
+        messageElement.innerText = "Hai inserito valori uguali, mettere tutti numeri diversi";
     }
+    
+    
+    // Se l'array non è vuoto cambio il colore del messaggio in verde 
    
     // Aggiungo al messaggio i numeri azzeccati 
-    messageElement.append(`(${result})`);
+   
 });
 
 
@@ -112,4 +119,20 @@ function twoArraysValuesControl (arr, arr2){
         }
     }
     return equalValuesArray;
+}
+
+
+// Funzione per controllare se gli elementi all'interno di un array sono uguali 
+function equalElementsInArray (arr) {
+    for(i=0; i < arr.length; i++){
+        for(a = arr.length; a > 0; a++){
+           if(i !== a){
+                if (arr[i] === arr[a]){
+                    return false;
+                }else {
+                    return true;
+                }
+           }
+        }
+    }
 }
