@@ -38,21 +38,33 @@ formElement.addEventListener("submit", function(event){
     const inputElements = document.querySelectorAll("input");
     // per ogni input prendo il valore e lo inserisco in un array 
     for(i=0; i<inputElements.length; i++){
-        userNumbers.push(parseInt(inputElements[i].value));
+        const inputUserNumber = parseInt(inputElements[i].value);
+        if(!(inputElement.includes(inputUserNumber))){
+        userNumbers.push();
     }
 
     // creo una variabile, contenente l'array dei valori uguali tra i due array
     const result = twoArraysValuesControl(userNumbers, casualArray);
-    if(result.length !== 0){
-        messageElement.classList.replace("text-danger", "text-success")
-        messageElement.innerText = "I numeri indovinati sono ";
-        messageElement.append(`(${result})`);
-        
-    }else {
-        messageElement.classList.replace("text-succcess", "text-danger")
+    if(equalElementsInArray(result)){
         messageElement.innerText = "Hai inserito valori uguali, mettere tutti numeri diversi";
+    } else {
+
+        if(result.length !== 0){
+            messageElement.classList.replace("text-danger", "text-success")
+            messageElement.innerText = "I numeri indovinati sono ";
+            messageElement.append(`(${result})`);
+            
+        }else {
+            messageElement.classList.replace("text-succcess", "text-danger")
+            
+        }
+        
+
     }
-    
+
+
+
+   
     
     // Se l'array non è vuoto cambio il colore del messaggio in verde 
    
@@ -120,17 +132,17 @@ function twoArraysValuesControl (arr, arr2){
 }
 
 
-// // Funzione per controllare se gli elementi all'interno di un array sono uguali 
-// function equalElementsInArray (arr) {
-//     for(i=0; i < arr.length; i++){
-//         for(a = arr.length; a > 0; a++){
-//            if(i !== a){
-//                 if (arr[i] === arr[a]){
-//                     return false;
-//                 }else {
-//                     return true;
-//                 }
-//            }
-//         }
-//     }
-// }
+// Funzione per controllare se gli elementi all'interno di un array sono uguali 
+function equalElementsInArray (arr) {
+    for(let i=0; i < arr.length; i++){
+        for(let a = arr.length; a > 0; a++){
+           if(i !== a){
+                if (arr[i] === arr[a]){
+                    return true;
+                }else {
+                    return false;
+                }
+           }
+        }
+    }
+}
