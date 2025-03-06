@@ -43,7 +43,7 @@ formElement.addEventListener("submit", function(event){
 
     // creo una variabile, contenente l'array dei valori uguali tra i due array
     const result = twoArraysValuesControl(userNumbers, casualArray);
-    if(equalElementsInArray(result) & result.length !== 0){
+    if(result.length !== 0){
         messageElement.classList.replace("text-danger", "text-success")
         messageElement.innerText = "I numeri indovinati sono ";
         messageElement.append(`(${result})`);
@@ -111,8 +111,6 @@ function intervalCounter (){
 // Funzione per controllare due array se hanno valori uguali e inserirli in un nuovo array
 function twoArraysValuesControl (arr, arr2){
     const equalValuesArray = [];
-    console.log("Questo è l'array dell'utente", arr);
-    console.log("Questo è l'array casuale", arr2);
     for(let i=0; i < arr.length; i++){
         if(arr2.includes(arr[i])){
             equalValuesArray.push(arr[i]);
@@ -122,17 +120,17 @@ function twoArraysValuesControl (arr, arr2){
 }
 
 
-// Funzione per controllare se gli elementi all'interno di un array sono uguali 
-function equalElementsInArray (arr) {
-    for(i=0; i < arr.length; i++){
-        for(a = arr.length; a > 0; a++){
-           if(i !== a){
-                if (arr[i] === arr[a]){
-                    return false;
-                }else {
-                    return true;
-                }
-           }
-        }
-    }
-}
+// // Funzione per controllare se gli elementi all'interno di un array sono uguali 
+// function equalElementsInArray (arr) {
+//     for(i=0; i < arr.length; i++){
+//         for(a = arr.length; a > 0; a++){
+//            if(i !== a){
+//                 if (arr[i] === arr[a]){
+//                     return false;
+//                 }else {
+//                     return true;
+//                 }
+//            }
+//         }
+//     }
+// }
