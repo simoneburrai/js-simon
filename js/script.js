@@ -4,11 +4,7 @@ const maxNumber = 50;
 // array with casual numbers 
 const casualArray = generateRandomNumbers(minNumber, maxNumber);
 // Timer count 
-let timerCount = 3;
-
-arrayProva = [3, 2, 7, 8, 9];
-
-const userNumbers = [];
+let timerCount = 10;
 
 // HTML Elements 
 const numbersListElement = document.getElementById("numbers-list");
@@ -17,6 +13,8 @@ const formElement = document.getElementById("answers-form");
 const instructionsElement = document.getElementById("instructions");
 const instructions2Element = document.getElementById("instructions2");
 const buttonElement = document.querySelector("button");
+const messageElement = document.getElementById("message");
+
 
 // Stampo in console i numeri casuali generati 
 for(i=0; i < casualArray.length; i++){
@@ -32,13 +30,27 @@ const timerInterval = setInterval(intervalCounter, 1_000);
 // Form Event listener 
 formElement.addEventListener("submit", function(event){
     event.preventDefault();
+    // stampo messaggio dei numeri indovinati 
+    messageElement.innerText = "I numeri indovinati sono ";
+    // creo un array di numeri vuoto 
+    const userNumbers = [];
+    // prendo tutti gli input dall'HTML 
     const inputElements = document.querySelectorAll("input");
+    // per ogni input prendo il valore e lo inserisco in un array 
     for(i=0; i<inputElements.length; i++){
         userNumbers.push(parseInt(inputElements[i].value));
     }
-    console.log(userNumbers);
-    console.log(casualArray);
-    console.log(twoArraysValuesControl(userNumbers, casualArray));
+
+    // creo una variabile, contenente l'array dei valori uguali tra i due array
+    const result = twoArraysValuesControl(userNumbers, casualArray);
+
+    // Se l'array non è vuoto cambio il colore del messaggio in verde 
+    if(result.length !== 0){
+        messageElement.classList.replace("text-danger", "text-success");
+    }
+   
+    // Aggiungo al messaggio i numeri azzeccati 
+    messageElement.append(`(${result})`);
 });
 
 
@@ -53,15 +65,20 @@ formElement.addEventListener("submit", function(event){
 // -------------------- FUNCTIONS ---------------------------
 
 
-// Funzione che genera un array con 5 numeri casuali 
+// Funzione che genera un array con 5 numeri casuali
+//Se ci sono numeri uguali non inserirlo all'interno dell'array e aumenta il numero di iterazioni 
 
 function generateRandomNumbers (min, max){
     const arrayNumbers = [];
-    for(i=0; i<5; i++){
-        const randomNum = Math.floor((Math.random() * max + min) - min);
+    let howManyNumbersGenerated = 5;
+    for(i=0; i < howManyNumbersGenerated; i++){  
+        const randomNum = Math.ceil((Math.random() * max - min) + min);
+        if(!(arrayNumbers.includes(randomNum))){
         arrayNumbers.push(randomNum);
+        }else {
+            howManyNumbersGenerated++;
+        }
     }
-    
     return arrayNumbers;
 }
 
