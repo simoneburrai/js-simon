@@ -4,7 +4,7 @@ const maxNumber = 50;
 // array with casual numbers 
 const casualArray = generateRandomNumbers(minNumber, maxNumber);
 // Timer count 
-let timerCount = 1;
+let timerCount = 3;
 
 // HTML Elements 
 const numbersListElement = document.getElementById("numbers-list");
@@ -36,39 +36,39 @@ formElement.addEventListener("submit", function(event){
     const userNumbers = [];
     // prendo tutti gli input dall'HTML 
     const inputElements = document.querySelectorAll("input");
+    console.log(inputElements);
     // per ogni input prendo il valore e lo inserisco in un array 
     for(i=0; i<inputElements.length; i++){
         const inputUserNumber = parseInt(inputElements[i].value);
-        if(!(inputElement.includes(inputUserNumber))){
-        userNumbers.push();
-    }
 
-    // creo una variabile, contenente l'array dei valori uguali tra i due array
-    const result = twoArraysValuesControl(userNumbers, casualArray);
-    if(equalElementsInArray(result)){
-        messageElement.innerText = "Hai inserito valori uguali, mettere tutti numeri diversi";
-    } else {
+            // se ci sono dei numeri uguali non li pusho nel nuovo array 
+            if(!userNumbers.includes(inputUserNumber)){
+                userNumbers.push(inputUserNumber);
+            }
+            // creo una variabile contenente i valori indovinati 
+            const result = twoArraysValuesControl(userNumbers, casualArray);
+            // Se l'array dei valori inseriti dall'utente è più piccolo di 5 son stato inseriti numeri uguali 
+            if(userNumbers.length < 5){
+                messageElement.innerText = "Hai inserito dei numeri uguali! Inserisci numeri differenti";
+                
+            } else { 
+                // Stampo nel broswer i valori indovinati 
+                messageElement.innerText = "I numeri indovinati sono ";
+                messageElement.append(`(${result})`);
+                if((result.length !== 0)){
+                    messageElement.classList.replace("text-danger", "text-success");
+                }
+            }
 
-        if(result.length !== 0){
-            messageElement.classList.replace("text-danger", "text-success")
-            messageElement.innerText = "I numeri indovinati sono ";
-            messageElement.append(`(${result})`);
+            if(!(userNumbers.length < 5 || result.length === 0)){
+               
+            }
+
+
             
-        }else {
-            messageElement.classList.replace("text-succcess", "text-danger")
             
-        }
-        
-
+        console.log(userNumbers)
     }
-
-
-
-   
-    
-    // Se l'array non è vuoto cambio il colore del messaggio in verde 
-   
-    // Aggiungo al messaggio i numeri azzeccati 
    
 });
 
@@ -129,20 +129,4 @@ function twoArraysValuesControl (arr, arr2){
         }
     }
     return equalValuesArray;
-}
-
-
-// Funzione per controllare se gli elementi all'interno di un array sono uguali 
-function equalElementsInArray (arr) {
-    for(let i=0; i < arr.length; i++){
-        for(let a = arr.length; a > 0; a++){
-           if(i !== a){
-                if (arr[i] === arr[a]){
-                    return true;
-                }else {
-                    return false;
-                }
-           }
-        }
-    }
 }
