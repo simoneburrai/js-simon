@@ -36,40 +36,35 @@ formElement.addEventListener("submit", function(event){
     const userNumbers = [];
     // prendo tutti gli input dall'HTML 
     const inputElements = document.querySelectorAll("input");
-    console.log(inputElements);
     // per ogni input prendo il valore e lo inserisco in un array 
     for(i=0; i<inputElements.length; i++){
         const inputUserNumber = parseInt(inputElements[i].value);
 
-            // se ci sono dei numeri uguali non li pusho nel nuovo array 
-            if(!userNumbers.includes(inputUserNumber)){
-                userNumbers.push(inputUserNumber);
-            }
-            // creo una variabile contenente i valori indovinati 
-            const result = twoArraysValuesControl(userNumbers, casualArray);
-            // Se l'array dei valori inseriti dall'utente è più piccolo di 5 son stato inseriti numeri uguali 
-            if(userNumbers.length < 5){
-                messageElement.innerText = "Hai inserito dei numeri uguali! Inserisci numeri differenti";
-                
-            } else { 
-                // Stampo nel broswer i valori indovinati 
-                messageElement.innerText = "I numeri indovinati sono ";
-                messageElement.append(`(${result})`);
-                if((result.length !== 0)){
-                    messageElement.classList.replace("text-danger", "text-success");
-                }
-            }
-
-            if(!(userNumbers.length < 5 || result.length === 0)){
-               
-            }
-
-
-            
-            
-        console.log(userNumbers)
+    // se ci sono dei numeri uguali non li pusho nel nuovo array 
+        if(!userNumbers.includes(inputUserNumber)){
+        userNumbers.push(inputUserNumber);
     }
-   
+    }
+
+    // creo una variabile contenente i valori indovinati 
+    const result = twoArraysValuesControl(userNumbers, casualArray);
+    // Se l'array dei valori inseriti dall'utente è più piccolo di 5 son stato inseriti numeri uguali 
+    if(userNumbers.length < 5){
+        messageElement.innerText = "Hai inserito dei numeri uguali! Inserisci numeri differenti";
+        
+    } else { 
+        // Stampo nel broswer i valori indovinati 
+        messageElement.innerText = "I numeri indovinati sono ";
+        messageElement.append(`(${result})`);
+        if((result.length !== 0)){
+            messageElement.classList.replace("text-danger", "text-success");
+        }
+    }
+
+    if(!(userNumbers.length < 5 || result.length === 0)){
+        
+    }
+
 });
 
 
